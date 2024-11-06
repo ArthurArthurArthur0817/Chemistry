@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>酸鹼指示劑模擬</title>
+    <style>
+        #container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-top: 50px;
+        }
+        #beaker {
+            width: 150px;
+            height: 200px;
+            background-color: white;
+            border: 2px solid black;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            text-align: center;
+        }
+        .substance {
+            width: 100px;
+            height: 50px;
+            background-color: lightgray;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid black;
+            cursor: grab;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>酸鹼指示劑模擬</h1>
+    <div>
+        <label for="substance">選擇物質:</label>
+        <select id="substance">
+            <option value="HCl">鹽酸</option>
+            <option value="NaOH">氫氧化鈉</option>
+        </select>
+
+        <label for="indicator">選擇指示劑:</label>
+        <select id="indicator">
+            <option value="bromothymol_blue">溴百里酚藍</option>
+            <option value="phenolphthalein">酚酞</option>
+        </select>
+
+        <button onclick="addSubstance()">添加</button>
+    </div>
+
+    <div id="container">
+        <div id="substances"></div>
+        <div id="beaker" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <p>pH值: 7</p>
+        </div>
+    </div>
+
+    <script>
+        // 保存所有倒入的物質，用於計算混合顏色和pH值
+        let substances = [];
+        let cumulativeColor = { r: 255, g: 255, b: 255 };
+        let cumulativePh = 7;
+
+        function addSubstance() {
+            const substance = document.getElementById('substance').value;
+            const indicator = document.getElementById('indicator').value;
+            const element = document.createElement('div');
+            element.className = 'substance';
+            element.draggable = true;
+            element.innerText = `${substance} + ${indicator}`;
+            element.ondragstart = (event) => {
+                event.dataTransfer.setData("substance", JSON.stringify({ substance, indicator }));
+            };
+            document.getElementById('substances').appendChild(element);
+        }
+
+        function allowDrop(event) {
+            event.preventDefault();
+        }
+
+        function drop(event) {
+            event.preventDefault();
+            const data = JSON.parse(event.dataTransfer.getData("substance"));
+            updateBeaker(data.substance, data.indicator);
+        }
+
+        function updateBeaker(substance, indicator) {
+            // 發送請求到伺服器來獲取新pH值和顏色
+            fetch('/simulate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams({ 'substance': substance, 'indicator': indicator })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // 更新累積pH和顏色
+                cumulativePh = (cumulativePh + data.ph) / 2;
+                cumulativeColor = blendColors(cumulativeColor, hexToRgb(data.color));
+
+                // 更新燒杯顯示
+                const beaker = document.getElementById('beaker');
+                beaker.style.backgroundColor = `rgb(${cumulativeColor.r}, ${cumulativeColor.g}, ${cumulativeColor.b})`;
+                beaker.querySelector('p').innerText = `pH值: ${cumulativePh.toFixed(2)}`;
+            });
+        }
+
+        function blendColors(color1, color2) {
+            return {
+                r: Math.floor((color1.r + color2.r) / 2),
+                g: Math.floor((color1.g + color2.g) / 2),
+                b: Math.floor((color1.b + color2.b) / 2)
+            };
+        }
+
+        function hexToRgb(hex) {
+            const bigint = parseInt(hex.slice(1), 16);
+            return { r: (bigint >> 16) & 255, g: (bigint >> 8) & 255, b: bigint & 255 };
+        }
+    </script>
+</body>
+</html>

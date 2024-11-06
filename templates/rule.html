@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>化學實驗行為分類</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>化學實驗行為分類</h1>
+    <div class="container">
+        <div id="safeBasket" class="basket" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <h2>安全行為</h2>
+        </div>
+        
+        <div id="actionsContainer" class="actions">
+            <div id="card1" class="card draggable" draggable="true" ondragstart="drag(event)">佩戴護目鏡</div>
+            <div id="card2" class="card draggable" draggable="true" ondragstart="drag(event)">使用未經允許的化學品</div>
+            <div id="card3" class="card draggable" draggable="true" ondragstart="drag(event)">準備清水以便清洗</div>
+        </div>
+        
+        <div id="dangerBasket" class="basket" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <h2>可能造成危險的行為</h2>
+        </div>
+    </div>
+
+    <script>
+        function allowDrop(event) {
+            event.preventDefault();
+        }
+
+        function drag(event) {
+            event.dataTransfer.setData("text", event.target.id);
+        }
+
+        function drop(event) {
+            event.preventDefault();
+            const cardId = event.dataTransfer.getData("text");
+            const card = document.getElementById(cardId);
+
+            // 判斷卡片是否被放到正確的籃子中
+            const isSafeBasket = event.target.id === "safeBasket" && (cardId === "card1" || cardId === "card3");
+            const isDangerBasket = event.target.id === "dangerBasket" && cardId === "card2";
+
+            if (isSafeBasket || isDangerBasket) {
+                // 成功分類時，將卡片移到目標籃子
+                event.target.appendChild(card);
+                card.style.position = "static"; // 取消絕對定位
+                alert("成功分類！");
+            } else {
+                // 錯誤分類時，回到原始位置
+                card.style.top = card.dataset.origTop;
+                card.style.left = card.dataset.origLeft;
+                alert("分類錯誤，請再試一次！");
+            }
+        }
+
+        // 設定卡片的初始絕對位置，避免位置跑偏
+        document.addEventListener("DOMContentLoaded", () => {
+            const cards = document.querySelectorAll(".draggable");
+            cards.forEach((card, index) => {
+                const startLeft = 20 + (120 * (index % 2));  // 每個卡片橫向間隔
+                const startTop = 20 + (60 * Math.floor(index / 2));  // 每個卡片縱向間隔
+                
+                card.style.position = "absolute";
+                card.style.left = startLeft + "px";
+                card.style.top = startTop + "px";
+                
+                // 儲存初始位置
+                card.dataset.origLeft = startLeft + "px";
+                card.dataset.origTop = startTop + "px";
+            });
+        });
+    </script>
+</body>
+</html>
