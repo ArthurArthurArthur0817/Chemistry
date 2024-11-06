@@ -5,78 +5,106 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>酸鹼指示劑模擬</title>
     <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+        }
         #container {
             display: flex;
-            justify-content: space-around;
             align-items: center;
-            margin-top: 50px;
+            justify-content: space-around;
+            margin-top: 30px;
         }
-        #beaker {
-            width: 150px;
-            height: 200px;
+        .small-beaker {
+            width: 100px;
+            height: 150px;
+            background-color: lightgray;
+            border: 2px solid black;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            margin: 10px;
+            cursor: grab;
+            text-align: center;
+        }
+        #main-beaker {
+            width: 200px;
+            height: 250px;
             background-color: white;
             border: 2px solid black;
             border-radius: 10px;
             display: flex;
-            justify-content: center;
             align-items: center;
-            font-size: 24px;
+            justify-content: center;
+            font-size: 18px;
             text-align: center;
-        }
-        .substance {
-            width: 100px;
-            height: 50px;
-            background-color: lightgray;
-            margin: 10px;
-            padding: 10px;
-            border: 1px solid black;
-            cursor: grab;
-            text-align: center;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
     <h1>酸鹼指示劑模擬</h1>
     <div>
-        <label for="substance">選擇物質:</label>
-        <select id="substance">
-            <option value="HCl">鹽酸</option>
-            <option value="NaOH">氫氧化鈉</option>
-        </select>
-
         <label for="indicator">選擇指示劑:</label>
         <select id="indicator">
-            <option value="bromothymol_blue">溴百里酚藍</option>
-            <option value="phenolphthalein">酚酞</option>
+            <option value="溴瑞香草酚藍">溴瑞香草酚藍</option>
+            <option value="甲基紅">甲基紅</option>
+            <option value="溴百里酚藍">溴百里酚藍</option>
+            <option value="百里酚藍">百里酚藍</option>
+            <option value="酚酞">酚酞</option>
         </select>
+        
 
-        <button onclick="addSubstance()">添加</button>
+        <label for="ph-slider">調整 pH 值:</label>
+        <input type="range" id="ph-slider" min="1" max="14" step="0.1" value="7" oninput="updatePHValue()">
+        <span id="ph-value">pH值: 7</span>
+
+        <button onclick="addBeaker()">生成小燒杯</button>
     </div>
 
     <div id="container">
-        <div id="substances"></div>
-        <div id="beaker" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <div id="small-beakers"></div>
+        <div id="main-beaker" ondrop="drop(event)" ondragover="allowDrop(event)">
             <p>pH值: 7</p>
         </div>
     </div>
 
     <script>
-        // 保存所有倒入的物質，用於計算混合顏色和pH值
-        let substances = [];
         let cumulativeColor = { r: 255, g: 255, b: 255 };
         let cumulativePh = 7;
 
-        function addSubstance() {
-            const substance = document.getElementById('substance').value;
+        function updatePHValue() {
+            const ph = document.getElementById('ph-slider').value;
+            document.getElementById('ph-value').innerText = `pH值: ${parseFloat(ph).toFixed(1)}`;
+        }
+
+        function addBeaker() {
             const indicator = document.getElementById('indicator').value;
-            const element = document.createElement('div');
-            element.className = 'substance';
-            element.draggable = true;
-            element.innerText = `${substance} + ${indicator}`;
-            element.ondragstart = (event) => {
-                event.dataTransfer.setData("substance", JSON.stringify({ substance, indicator }));
-            };
-            document.getElementById('substances').appendChild(element);
+            const ph = parseFloat(document.getElementById('ph-slider').value);
+
+            fetch('/simulate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams({ 'ph': ph, 'indicator': indicator })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const beaker = document.createElement('div');
+                beaker.className = 'small-beaker';
+                beaker.draggable = true;
+                beaker.ondragstart = (event) => {
+                    event.dataTransfer.setData("beaker", JSON.stringify({ ph, color: data.color }));
+                };
+                beaker.style.backgroundColor = data.color;
+                beaker.innerHTML = `<p>pH: ${ph}</p><p>${indicator}</p>`;
+                document.getElementById('small-beakers').appendChild(beaker);
+            });
         }
 
         function allowDrop(event) {
@@ -85,28 +113,13 @@
 
         function drop(event) {
             event.preventDefault();
-            const data = JSON.parse(event.dataTransfer.getData("substance"));
-            updateBeaker(data.substance, data.indicator);
-        }
+            const data = JSON.parse(event.dataTransfer.getData("beaker"));
+            cumulativePh = (cumulativePh + data.ph) / 2;
+            cumulativeColor = blendColors(cumulativeColor, hexToRgb(data.color));
 
-        function updateBeaker(substance, indicator) {
-            // 發送請求到伺服器來獲取新pH值和顏色
-            fetch('/simulate', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: new URLSearchParams({ 'substance': substance, 'indicator': indicator })
-            })
-            .then(response => response.json())
-            .then(data => {
-                // 更新累積pH和顏色
-                cumulativePh = (cumulativePh + data.ph) / 2;
-                cumulativeColor = blendColors(cumulativeColor, hexToRgb(data.color));
-
-                // 更新燒杯顯示
-                const beaker = document.getElementById('beaker');
-                beaker.style.backgroundColor = `rgb(${cumulativeColor.r}, ${cumulativeColor.g}, ${cumulativeColor.b})`;
-                beaker.querySelector('p').innerText = `pH值: ${cumulativePh.toFixed(2)}`;
-            });
+            const mainBeaker = document.getElementById('main-beaker');
+            mainBeaker.style.backgroundColor = `rgb(${cumulativeColor.r}, ${cumulativeColor.g}, ${cumulativeColor.b})`;
+            mainBeaker.querySelector('p').innerText = `pH值: ${cumulativePh.toFixed(2)}`;
         }
 
         function blendColors(color1, color2) {
