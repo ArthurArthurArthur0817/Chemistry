@@ -24,9 +24,9 @@ def classification():
 def page2():
     return render_template('page2.html')
 
-@app.route('/page3')
+@app.route('/indicator')
 def page3():
-    return render_template('page3.html')
+    return render_template('indicator.html')
 
 # 化學模擬的 API，處理 pH 和指示劑
 @app.route('/simulate', methods=['POST'])
