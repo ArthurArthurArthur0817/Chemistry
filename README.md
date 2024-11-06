@@ -2,7 +2,7 @@
 
 
  ```
-final_project/
+Chemistry/
 │
 ├── app.py                # 主 Flask 應用程式文件
 ├── rule.py               # 包含分類驗證和答案定義的邏輯
@@ -14,3 +14,4 @@ final_project/
     ├── styles.css         # CSS 文件
     └── scripts.js         # JavaScript 文件
 ```
+
