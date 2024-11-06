@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>酸鹼指示劑介紹</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f2f2f2;
+            color: #333;
+        }
+        h1 {
+            margin-top: 20px;
+            color: #4CAF50;
+        }
+        .button-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            max-width: 600px;
+            width: 100%;
+            margin: 20px 0;
+        }
+        .button {
+            padding: 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        /* 彈跳視窗樣式 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+        }
+        .modal img {
+            width: 200px;
+            height: auto;
+            margin: 15px 0;
+        }
+        .mindmap {
+            background-color: #e1f5fe;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: left;
+            margin-bottom: 15px;
+        }
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #2196F3;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .close-button:hover {
+            background-color: #0b7dda;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>酸鹼指示劑介紹</h1>
+
+    <!-- 按鈕區域 -->
+    <div class="button-container">
+        <button class="button" onclick="showModal('methyl-red')">甲基紅 (Methyl Red)</button>
+        <button class="button" onclick="showModal('litmus')">石蕊試紙 (Litmus)</button>
+        <button class="button" onclick="showModal('bromothymol-blue')">溴瑞香草芬藍 (Bromothymol Blue)</button>
+        <button class="button" onclick="showModal('phenolphthalein')">百里芬蘭 (Phenolphthalein)</button>
+        <button class="button" onclick="showModal('red-cabbage-juice')">紫色高麗菜汁 (Red Cabbage Juice)</button>
+        <button class="button" onclick="showModal('resazurin')">酚肽 (Resazurin)</button>
+    </div>
+
+    <!-- 彈跳視窗內容 -->
+    <div id="methyl-red" class="modal">
+        <div class="modal-content">
+            <button class="close-button" onclick="closeModal()">×</button>
+            <h2>甲基紅 (Methyl Red)</h2>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjJlwgJOb5FU32apWAaFk6OK-VG-ZCzkT0dg&s" alt="甲基紅示意圖">
+            <div class="mindmap">
+                <p>範圍：4.4 - 6.2</p>
+                <p>顏色變化：酸性紅色，鹼性黃色</p>
+                <p>用途：常用於酸鹼滴定分析</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="litmus" class="modal">
+        <div class="modal-content">
+            <button class="close-button" onclick="closeModal()">×</button>
+            <h2>石蕊試紙 (Litmus)</h2>
+            <img src="https://www.sifo.com.tw/upload/20220527141601gwfc41.jpg" alt="石蕊試紙示意圖">
+            <div class="mindmap">
+                <p>範圍：4.5 - 8.3</p>
+                <p>顏色變化：酸性紅色，鹼性藍色</p>
+                <p>用途：常用於快速判定酸鹼性</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="bromothymol-blue" class="modal">
+        <div class="modal-content">
+            <button class="close-button" onclick="closeModal()">×</button>
+            <h2>溴瑞香草芬藍 (Bromothymol Blue)</h2>
+            <img src="https://fs1.shop123.com.tw/400116/upload/product/4001165384pic_big_207417.jpg" alt="溴瑞香草芬藍示意圖">
+            <div class="mindmap">
+                <p>範圍：6.0 - 7.6</p>
+                <p>顏色變化：酸性黃色，鹼性藍色</p>
+                <p>用途：常用於測試中性環境</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="phenolphthalein" class="modal">
+        <div class="modal-content">
+            <button class="close-button" onclick="closeModal()">×</button>
+            <h2>百里芬蘭 (Phenolphthalein)</h2>
+            <img src="https://img.alicdn.com/imgextra/i1/1982594344/O1CN01Q0M4j51hxb63GVCF9_!!1982594344.jpg_q50s50.jpg" alt="百里芬蘭示意圖">
+            <div class="mindmap">
+                <p>範圍：8.3 - 10.0</p>
+                <p>顏色變化：酸性無色，鹼性粉紅色</p>
+                <p>用途：常用於鹼性滴定指示劑</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="red-cabbage-juice" class="modal">
+        <div class="modal-content">
+            <button class="close-button" onclick="closeModal()">×</button>
+            <h2>紫色高麗菜汁 (Red Cabbage Juice)</h2>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaHxtKAdTsHhENQ8m_60e0yOCIRRM2P_mPvA&s" alt="紫色高麗菜汁示意圖">
+            <div class="mindmap">
+                <p>範圍：多種酸鹼值顏色變化</p>
+                <p>顏色變化：酸性紅色，鹼性綠色</p>
+                <p>用途：天然的酸鹼指示劑</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="resazurin" class="modal">
+        <div class="modal-content">
+            <button class="close-button" onclick="closeModal()">×</button>
+            <h2>酚肽 (Resazurin)</h2>
+            <img src="https://exp-picture.cdn.bcebos.com/3c42a5ea3e863048ad122163c33104ebf7a752e9.jpg?x-bce-process=image%2Fcrop%2Cx_0%2Cy_0%2Cw_510%2Ch_477%2Fformat%2Cf_auto%2Fquality%2Cq_80" alt="酚肽示意圖">
+            <div class="mindmap">
+                <p>範圍：3.8 - 6.4</p>
+                <p>顏色變化：酸性藍色，鹼性粉紅色</p>
+                <p>用途：常用於細胞活性測試</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showModal(id) {
+            document.getElementById(id).style.display = 'flex';
+        }
+
+        function closeModal() {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => modal.style.display = 'none');
+        }
+    </script>
+</body>
+</html>
