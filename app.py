@@ -40,18 +40,7 @@ def simulate():
     return jsonify({"ph": ph, "color": color})  # 返回 pH 和顏色
 
 
-# 行為分類的 API，接收前端的分類結果
-@app.route('/submit', methods=['POST'])
-def submit_classification():
-    data = request.json
-    safe = data.get('safe', [])
-    danger = data.get('danger', [])
 
-    # 使用 rule.py 中的函數來驗證分類正確性
-    is_correct = rule.validate_classification(safe, danger)
-    message = "分類完成！" if is_correct else "分類錯誤，請重新檢查！"
-    
-    return jsonify({"success": is_correct, "message": message})
 
 if __name__ == '__main__':
     app.run(debug=True)
