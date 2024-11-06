@@ -28,14 +28,17 @@ def page2():
 def page3():
     return render_template('page3.html')
 
-# 化學模擬的 API，處理物質和指示劑
+# 化學模擬的 API，處理 pH 和指示劑
 @app.route('/simulate', methods=['POST'])
 def simulate():
-    substance = request.form['substance']
+    # 獲取 pH 和 indicator 值
+    ph = float(request.form['ph'])  # 接收 pH 值，並轉換為浮點數
     indicator = request.form['indicator']
     
-    ph, color = chemistry.get_ph_and_color(substance, indicator)
-    return jsonify({"ph": ph, "color": color})
+    # 根據 pH 和 indicator 獲取顏色
+    ph, color = chemistry.get_ph_and_color(ph, indicator)
+    return jsonify({"ph": ph, "color": color})  # 返回 pH 和顏色
+
 
 # 行為分類的 API，接收前端的分類結果
 @app.route('/submit', methods=['POST'])
