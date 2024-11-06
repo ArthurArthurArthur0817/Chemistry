@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, jsonify
 import chemistry  # 假設 chemistry.py 處理化學模擬的邏輯
-import rule  # 引入剛剛拆分出來的 rule.py
 
 app = Flask(__name__)
 
