@@ -9,20 +9,20 @@ app = Flask(__name__)
 def main_page():
     return render_template('index.html')
 
-# 路由2：化學實驗教學頁面
+
 @app.route('/chemistry')
 def chemistry_page():
     return render_template('chemistry.html')
 
-# 路由3：行為分類頁面
+
 @app.route('/classification')
 def classification():
     return render_template('rule.html')
 
-# 路由4：其他頁面
-@app.route('/page2')
+
+@app.route('/teach')
 def page2():
-    return render_template('page2.html')
+    return render_template('teach.html')
 
 @app.route('/indicator')
 def page3():
