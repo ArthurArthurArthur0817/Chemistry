@@ -1,0 +1,126 @@
+/* rule.css */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    max-width: 1200px;
+    margin: 20px auto;
+}
+
+.basket {
+    width: 45%;
+    min-height: 300px;
+    padding: 15px;
+    border: 2px dashed #888;
+    border-radius: 10px;
+    background-color: #ffffff;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.basket.safe {
+    border-color: #28a745;
+}
+
+.basket.danger {
+    border-color: #dc3545;
+}
+
+.basket.safe:hover {
+    background-color: #e9f7ec;
+}
+
+.basket.danger:hover {
+    background-color: #fbeae9;
+}
+
+.basket-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    margin: 20px auto;
+    width: 90%;
+}
+
+.card {
+    width: 150px;
+    height: 50px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: grab;
+    font-size: 1rem;
+    color: #333;
+    text-align: center;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.card:active {
+    transform: scale(1.05);
+    background-color: #f0f8ff;
+}
+
+button.submit-btn {
+    margin-top: 30px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: #ffffff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button.submit-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Success and error messages */
+.message {
+    margin-top: 20px;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.message.success {
+    color: #28a745;
+}
+
+.message.error {
+    color: #dc3545;
+}

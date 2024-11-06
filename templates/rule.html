@@ -1,76 +1,107 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>化學實驗行為分類</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>行為分類</title>
+    <link rel="stylesheet" href="/static/rule.css">
 </head>
 <body>
-    <h1>化學實驗行為分類</h1>
+    <h1>行為分類</h1>
+
+    <!-- 教學提示圖片 -->
+    <div id="instruction-popup" class="popup" style="display: none;">
+        <p>此行為不正確，請再試一次！</p>
+        <img src="/static/instruction.png" alt="教學圖片" style="width: 100%; max-width: 400px;">
+        <button onclick="closePopup()">關閉</button>
+    </div>
+
     <div class="container">
-        <div id="safeBasket" class="basket" ondrop="drop(event)" ondragover="allowDrop(event)">
-            <h2>安全行為</h2>
+        <div id="safe-basket" class="basket safe" ondrop="drop(event, 'safe')" ondragover="allowDrop(event)">
+            <div class="basket-title">安全行為</div>
         </div>
-        
-        <div id="actionsContainer" class="actions">
-            <div id="card1" class="card draggable" draggable="true" ondragstart="drag(event)">佩戴護目鏡</div>
-            <div id="card2" class="card draggable" draggable="true" ondragstart="drag(event)">使用未經允許的化學品</div>
-            <div id="card3" class="card draggable" draggable="true" ondragstart="drag(event)">準備清水以便清洗</div>
-        </div>
-        
-        <div id="dangerBasket" class="basket" ondrop="drop(event)" ondragover="allowDrop(event)">
-            <h2>可能造成危險的行為</h2>
+        <div id="danger-basket" class="basket danger" ondrop="drop(event, 'danger')" ondragover="allowDrop(event)">
+            <div class="basket-title">可能危險的行為</div>
         </div>
     </div>
 
+    <div class="actions">
+        <div class="card" id="card1" draggable="true" ondragstart="drag(event)">佩戴護目鏡</div>
+        <div class="card" id="card2" draggable="true" ondragstart="drag(event)">使用未經允許的化學品</div>
+        <div class="card" id="card3" draggable="true" ondragstart="drag(event)">在通風處實驗</div>
+        <div class="card" id="card4" draggable="true" ondragstart="drag(event)">徒手接觸化學品</div>
+        <!-- 可以在這裡添加更多卡片 -->
+    </div>
+
+    <button class="submit-btn" onclick="submitClassification()">提交</button>
+
+    <div id="message" class="message"></div>
+
     <script>
+        // 定義正確的分類答案
+        const correctSafe = ["佩戴護目鏡", "在通風處實驗"];
+        const correctDanger = ["使用未經允許的化學品", "徒手接觸化學品"];
+
+        // 拖放邏輯
+        let draggedCard;
+        let originalBasket = null;
+
+        function drag(event) {
+            draggedCard = event.target;
+            originalBasket = draggedCard.parentNode;
+        }
+
         function allowDrop(event) {
             event.preventDefault();
         }
 
-        function drag(event) {
-            event.dataTransfer.setData("text", event.target.id);
-        }
-
-        function drop(event) {
+        function drop(event, basketType) {
             event.preventDefault();
-            const cardId = event.dataTransfer.getData("text");
-            const card = document.getElementById(cardId);
-
-            // 判斷卡片是否被放到正確的籃子中
-            const isSafeBasket = event.target.id === "safeBasket" && (cardId === "card1" || cardId === "card3");
-            const isDangerBasket = event.target.id === "dangerBasket" && cardId === "card2";
-
-            if (isSafeBasket || isDangerBasket) {
-                // 成功分類時，將卡片移到目標籃子
-                event.target.appendChild(card);
-                card.style.position = "static"; // 取消絕對定位
-                alert("成功分類！");
+            const cardText = draggedCard.innerText;
+            
+            // 檢查是否放入錯誤的籃子
+            if ((basketType === 'safe' && correctDanger.includes(cardText)) || 
+                (basketType === 'danger' && correctSafe.includes(cardText))) {
+                
+                // 顯示教學圖片，並將卡片回到原位
+                showPopup();
+                originalBasket.appendChild(draggedCard);
             } else {
-                // 錯誤分類時，回到原始位置
-                card.style.top = card.dataset.origTop;
-                card.style.left = card.dataset.origLeft;
-                alert("分類錯誤，請再試一次！");
+                // 放入正確的籃子
+                event.target.appendChild(draggedCard);
             }
         }
 
-        // 設定卡片的初始絕對位置，避免位置跑偏
-        document.addEventListener("DOMContentLoaded", () => {
-            const cards = document.querySelectorAll(".draggable");
-            cards.forEach((card, index) => {
-                const startLeft = 20 + (120 * (index % 2));  // 每個卡片橫向間隔
-                const startTop = 20 + (60 * Math.floor(index / 2));  // 每個卡片縱向間隔
-                
-                card.style.position = "absolute";
-                card.style.left = startLeft + "px";
-                card.style.top = startTop + "px";
-                
-                // 儲存初始位置
-                card.dataset.origLeft = startLeft + "px";
-                card.dataset.origTop = startTop + "px";
-            });
-        });
+        function showPopup() {
+            document.getElementById("instruction-popup").style.display = "block";
+        }
+
+        function closePopup() {
+            document.getElementById("instruction-popup").style.display = "none";
+        }
+
+        function submitClassification() {
+            const safeBasketCards = Array.from(document.getElementById('safe-basket').children)
+                                        .filter(card => card.classList.contains("card"))
+                                        .map(card => card.innerText);
+            const dangerBasketCards = Array.from(document.getElementById('danger-basket').children)
+                                        .filter(card => card.classList.contains("card"))
+                                        .map(card => card.innerText);
+
+            const isCorrect = validateClassification(safeBasketCards, dangerBasketCards);
+            
+            const message = isCorrect ? "分類完成！" : "分類錯誤，請重新檢查！";
+            document.getElementById("message").innerText = message;
+            document.getElementById("message").classList.toggle("success", isCorrect);
+            document.getElementById("message").classList.toggle("error", !isCorrect);
+        }
+
+        // 驗證用戶的分類是否正確
+        function validateClassification(safe, danger) {
+            const isCorrect = JSON.stringify(safe) === JSON.stringify(correctSafe) && 
+                              JSON.stringify(danger) === JSON.stringify(correctDanger);
+            return isCorrect;
+        }
     </script>
 </body>
 </html>
