@@ -1,5 +1,3 @@
-/* rule.css */
-
 * {
     box-sizing: border-box;
     margin: 0;
@@ -21,6 +19,61 @@ h1 {
     margin-bottom: 20px;
 }
 
+/* Instructions popup */
+#instruction-popup {
+    display: none; /* 初始隱藏 */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 80%;
+    text-align: center;
+    z-index: 1000;
+}
+
+#instruction-popup p {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+}
+
+#instruction-popup img {
+    width: 100%;
+    max-width: 350px;
+    margin-bottom: 15px;
+}
+
+#instruction-popup button {
+    padding: 8px 15px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+#instruction-popup button:hover {
+    background-color: #218838;
+}
+
+/* Overlay background */
+#overlay {
+    display: none; /* 初始隱藏 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999; /* 確保在彈窗下方 */
+}
+
+/* Container for baskets */
 .container {
     display: flex;
     justify-content: space-between;
@@ -63,6 +116,7 @@ h1 {
     margin-bottom: 15px;
 }
 
+/* Draggable cards */
 .actions {
     display: flex;
     flex-wrap: wrap;
@@ -94,6 +148,12 @@ h1 {
     background-color: #f0f8ff;
 }
 
+.card.dragging {
+    opacity: 0.5;
+    transform: scale(1.1);
+}
+
+/* Submit button */
 button.submit-btn {
     margin-top: 30px;
     padding: 10px 20px;
@@ -123,4 +183,25 @@ button.submit-btn:hover {
 
 .message.error {
     color: #dc3545;
+}
+
+/* For better mobile responsiveness */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .basket {
+        width: 80%;
+        margin-bottom: 20px;
+    }
+
+    .actions {
+        flex-direction: column;
+    }
+
+    .card {
+        width: 100%;
+    }
 }

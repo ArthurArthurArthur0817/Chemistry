@@ -9,84 +9,116 @@
 <body>
     <h1>行為分類</h1>
 
-    <!-- 教學提示圖片 -->
+    <!-- 教學提示圖片，初始隱藏 -->
     <div id="instruction-popup" class="popup" style="display: none;">
-        <p>此行為不正確，請再試一次！</p>
-        <img src="/static/instruction.png" alt="教學圖片" style="width: 100%; max-width: 400px;">
+        <p>此分類不正確，請再試一次！</p>
+        <img id="instruction-image" src="" alt="教學圖片" style="width: 100%; max-width: 400px;">
         <button onclick="closePopup()">關閉</button>
     </div>
 
+    <!-- 兩個分類籃子 -->
     <div class="container">
         <div id="safe-basket" class="basket safe" ondrop="drop(event, 'safe')" ondragover="allowDrop(event)">
             <div class="basket-title">安全行為</div>
         </div>
         <div id="danger-basket" class="basket danger" ondrop="drop(event, 'danger')" ondragover="allowDrop(event)">
-            <div class="basket-title">可能危險的行為</div>
+            <div class="basket-title">可能造成危險的行為</div>
         </div>
     </div>
 
-    <div class="actions">
-        <div class="card" id="card1" draggable="true" ondragstart="drag(event)">佩戴護目鏡</div>
-        <div class="card" id="card2" draggable="true" ondragstart="drag(event)">使用未經允許的化學品</div>
-        <div class="card" id="card3" draggable="true" ondragstart="drag(event)">在通風處實驗</div>
-        <div class="card" id="card4" draggable="true" ondragstart="drag(event)">徒手接觸化學品</div>
-        <!-- 可以在這裡添加更多卡片 -->
+    <!-- 卡片區域 -->
+    <div class="card-container">
+        <div class="card" id="card1" draggable="true" ondragstart="drag(event)">
+            <p>配戴手套</p>
+        </div>
+        <div class="card" id="card2" draggable="true" ondragstart="drag(event)">
+            <p>配戴護目鏡</p>
+        </div>
+        <div class="card" id="card3" draggable="true" ondragstart="drag(event)">
+            <p>熟悉實驗器材和化學品的使用方法</p>
+        </div>
+        <div class="card" id="card4" draggable="true" ondragstart="drag(event)">
+            <p>熟悉緊急設備的位置</p>
+        </div>
+        <div class="card" id="card5" draggable="true" ondragstart="drag(event)">
+            <p>遵從實驗室指導老師或管理員的指示</p>
+        </div>
+        <div class="card" id="card6" draggable="true" ondragstart="drag(event)">
+            <p>不遵守標準化學品處理流程</p>
+        </div>
+        <div class="card" id="card7" draggable="true" ondragstart="drag(event)">
+            <p>在實驗室內飲食</p>
+        </div>
+        <div class="card" id="card8" draggable="true" ondragstart="drag(event)">
+            <p>徒手接觸化學品</p>
+        </div>
     </div>
 
+    <!-- 提交按鈕和消息顯示 -->
     <button class="submit-btn" onclick="submitClassification()">提交</button>
-
     <div id="message" class="message"></div>
 
     <script>
-        // 定義正確的分類答案
-        const correctSafe = ["佩戴護目鏡", "在通風處實驗"];
-        const correctDanger = ["使用未經允許的化學品", "徒手接觸化學品"];
+        const correctSafe = ["配戴手套", "配戴護目鏡", "熟悉實驗器材和化學品的使用方法", "熟悉緊急設備的位置", "遵從實驗室指導老師或管理員的指示"];
+        const correctDanger = ["不遵守標準化學品處理流程", "在實驗室內飲食", "徒手接觸化學品"];
 
-        // 拖放邏輯
         let draggedCard;
         let originalBasket = null;
+        let popupVisible = false;
 
         function drag(event) {
+            if (popupVisible) return;
             draggedCard = event.target;
             originalBasket = draggedCard.parentNode;
         }
 
         function allowDrop(event) {
-            event.preventDefault();
+            if (!popupVisible) event.preventDefault();
         }
 
         function drop(event, basketType) {
             event.preventDefault();
-            const cardText = draggedCard.innerText;
-            
-            // 檢查是否放入錯誤的籃子
+            const cardText = draggedCard.innerText.trim();
+
+            // 若拖曳錯誤行為至錯誤籃子時，彈出教學圖卡
             if ((basketType === 'safe' && correctDanger.includes(cardText)) || 
                 (basketType === 'danger' && correctSafe.includes(cardText))) {
+
+                // 顯示對應的提示圖片
+                const imageSrc = getImageForCard(cardText, basketType);
+                showPopup(imageSrc);
                 
-                // 顯示教學圖片，並將卡片回到原位
-                showPopup();
-                originalBasket.appendChild(draggedCard);
+                // 將卡片移回原位
+                originalBasket.appendChild(draggedCard); 
             } else {
-                // 放入正確的籃子
                 event.target.appendChild(draggedCard);
             }
         }
 
-        function showPopup() {
+        function showPopup(imageSrc) {
+            popupVisible = true;
+            document.getElementById("instruction-image").src = imageSrc;
             document.getElementById("instruction-popup").style.display = "block";
         }
 
         function closePopup() {
+            popupVisible = false;
             document.getElementById("instruction-popup").style.display = "none";
         }
 
         function submitClassification() {
+            if (popupVisible) return;
+
             const safeBasketCards = Array.from(document.getElementById('safe-basket').children)
                                         .filter(card => card.classList.contains("card"))
-                                        .map(card => card.innerText);
+                                        .map(card => card.innerText.trim());
             const dangerBasketCards = Array.from(document.getElementById('danger-basket').children)
                                         .filter(card => card.classList.contains("card"))
-                                        .map(card => card.innerText);
+                                        .map(card => card.innerText.trim());
+
+            // 輸出實際的卡片內容，便於調試
+            console.log("安全行為籃子內容: ", safeBasketCards);
+            console.log("可能危險行為籃子內容: ", dangerBasketCards);
 
             const isCorrect = validateClassification(safeBasketCards, dangerBasketCards);
             
@@ -96,11 +128,30 @@
             document.getElementById("message").classList.toggle("error", !isCorrect);
         }
 
-        // 驗證用戶的分類是否正確
         function validateClassification(safe, danger) {
-            const isCorrect = JSON.stringify(safe) === JSON.stringify(correctSafe) && 
-                              JSON.stringify(danger) === JSON.stringify(correctDanger);
-            return isCorrect;
+            // 比對卡片內容，不考慮順序
+            const safeSet = new Set(safe);
+            const dangerSet = new Set(danger);
+
+            return safeSet.size === correctSafe.length && 
+                   dangerSet.size === correctDanger.length && 
+                   [...safeSet].every(card => correctSafe.includes(card)) && 
+                   [...dangerSet].every(card => correctDanger.includes(card));
+        }
+
+        function getImageForCard(cardText, basketType) {
+            const imageMap = {
+                "配戴手套": "/static/image/配戴手套.png",
+                "配戴護目鏡": "/static/image/配戴護目鏡.png",
+                "熟悉實驗器材和化學品的使用方法": "/static/image/熟悉實驗器材和化學品的使用方法.png",
+                "熟悉緊急設備的位置": "/static/image/熟悉緊急設備的位置.png",
+                "遵從實驗室指導老師或管理員的指示": "/static/image/遵從實驗室指導老師或管理員的指示.png",
+                "不遵守標準化學品處理流程": "/static/image/不遵守標準化學品處理流程.png",
+                "在實驗室內飲食": "/static/image/在實驗室內飲食.png",
+                "徒手接觸化學品": "/static/image/徒手接觸化學品.png"
+            };
+
+            return basketType === 'safe' ? imageMap[cardText] : imageMap[cardText];
         }
     </script>
 </body>
