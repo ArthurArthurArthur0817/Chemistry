@@ -4,15 +4,94 @@
     <meta charset="UTF-8">
     <title>化學實驗教學</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        /* 背景及整體設計 */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #4e73df, #a6bdf0);
+            color: #333;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* 標題及圖片容器設計 */
+        .header-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* 標題設計 */
+        h1 {
+            color: #fff;
+            font-size: 2.5em;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        /* 燒杯圖片設計 */
+        .beaker-image {
+            width: 50px;
+            height: 50px;
+        }
+
+        /* 按鈕容器設計 */
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        /* 按鈕設計 */
+        button {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2em;
+            color: #4e73df;
+            background-color: #fff;
+            border: 2px solid #4e73df;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            background-color: #4e73df;
+            color: #fff;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        /* 針對小型設備的調整 */
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2em;
+            }
+            button {
+                font-size: 1em;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>化學實驗教學</h1>
-    <div class="button-container">
-        <button onclick="window.location.href='/chemistry'">酸鹼值檢定</button>
-        <button onclick="window.location.href='/classification'">行為分類</button>
-        <button onclick="window.location.href='/teach'">實驗安全守則</button>
-        <button onclick="window.location.href='/page2'">g6u90</button>
-        <button onclick="window.location.href='/indicator'">指示劑</button>
+    <div>
+        <div class="header-container">
+            <h1>化學實驗教學</h1>
+            <img src="{{ url_for('static', filename='image/cup.png') }}" alt="p" class="beaker-image">
+        </div>
+        <div class="button-container">
+            <button onclick="window.location.href='/chemistry'">酸鹼值檢定</button>
+            <button onclick="window.location.href='/classification'">行為分類</button>
+            <button onclick="window.location.href='/teach'">實驗安全守則</button>
+            <button onclick="window.location.href='/page2'">g6u90</button>
+            <button onclick="window.location.href='/indicator'">指示劑</button>
+        </div>
     </div>
 </body>
 </html>
