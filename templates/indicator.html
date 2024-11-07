@@ -100,9 +100,13 @@
         <button class="button" onclick="showModal('phenolphthalein')">百里芬蘭 (Phenolphthalein)</button>
         <button class="button" onclick="showModal('red-cabbage-juice')">紫色高麗菜汁 (Red Cabbage Juice)</button>
         <button class="button" onclick="showModal('resazurin')">酚肽 (Resazurin)</button>
+        <button class="button" onclick="showModal('phenol-red')">酚紅 (Phenol Red)</button>
+        <button class="button" onclick="showModal('universal-indicator')">廣用試紙 (Universal Indicator Paper)</button>
+        <button class="button" onclick="showModal('methyl-orange')">甲基橙 (Methyl Orange)</button>
     </div>
 
     <!-- 彈跳視窗內容 -->
+    <!-- 甲基紅 -->
     <div id="methyl-red" class="modal">
         <div class="modal-content">
             <button class="close-button" onclick="closeModal()">×</button>
@@ -116,6 +120,7 @@
         </div>
     </div>
 
+    <!-- 石蕊試紙 -->
     <div id="litmus" class="modal">
         <div class="modal-content">
             <button class="close-button" onclick="closeModal()">×</button>
@@ -129,6 +134,7 @@
         </div>
     </div>
 
+    <!-- 溴瑞香草芬藍 -->
     <div id="bromothymol-blue" class="modal">
         <div class="modal-content">
             <button class="close-button" onclick="closeModal()">×</button>
@@ -142,6 +148,7 @@
         </div>
     </div>
 
+    <!-- 百里芬蘭 -->
     <div id="phenolphthalein" class="modal">
         <div class="modal-content">
             <button class="close-button" onclick="closeModal()">×</button>
@@ -155,6 +162,7 @@
         </div>
     </div>
 
+    <!-- 紫色高麗菜汁 -->
     <div id="red-cabbage-juice" class="modal">
         <div class="modal-content">
             <button class="close-button" onclick="closeModal()">×</button>
@@ -168,6 +176,7 @@
         </div>
     </div>
 
+    <!-- 酚肽 -->
     <div id="resazurin" class="modal">
         <div class="modal-content">
             <button class="close-button" onclick="closeModal()">×</button>
@@ -177,6 +186,76 @@
                 <p>範圍：3.8 - 6.4</p>
                 <p>顏色變化：酸性藍色，鹼性粉紅色</p>
                 <p>用途：常用於細胞活性測試</p>
+            </div>
+        </div>
+    </div>
+
+       <!-- 酚紅 -->
+    <div id="phenol-red" class="modal">
+        <div class="modal-content">
+            <button class="close-button" onclick="closeModal()">×</button>
+            <h2>酚紅 (Phenol Red)</h2>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Phenol_red_sample.JPG/300px-Phenol_red_sample.JPG" alt="酚紅示意圖">
+            <div class="mindmap">
+                <p>範圍：6.8 - 8.4</p>
+                <p>顏色變化：酸性黃色，鹼性紅色</p>
+                <p>用途：常用於水質測試，例如泳池酸鹼度測試</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 廣用試紙 -->
+    <div id="universal-indicator" class="modal">
+        <div class="modal-content">
+            <button class="close-button" onclick="closeModal()">×</button>
+            <h2>廣用試紙 (Universal Indicator Paper)</h2>
+            <img src="https://i2.momoshop.com.tw/1692392994/goodsimg/0010/948/949/10948949_O_m.webp" alt="廣用試紙示意圖">
+            <div class="mindmap">
+                <p>範圍：1 - 14</p>
+                <p>顏色變化：隨著酸鹼度從紅色至藍色變化</p>
+                <p>用途：廣泛應用於測試液體的酸鹼值</p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 酚紅 -->
+    <div id="phenol-red" class="modal">
+        <div class="modal-content">
+            <button class="close-button" onclick="closeModal()">×</button>
+            <h2>酚紅 (Phenol Red)</h2>
+            <img src="phenol_red.jpg" alt="酚紅示意圖">
+            <div class="mindmap">
+                <p>範圍：6.8 - 8.4</p>
+                <p>顏色變化：酸性黃色，鹼性紅色</p>
+                <p>用途：常用於水質測試，例如泳池酸鹼度測試</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 廣用試紙 -->
+    <div id="universal-indicator" class="modal">
+        <div class="modal-content">
+            <button class="close-button" onclick="closeModal()">×</button>
+            <h2>廣用試紙 (Universal Indicator Paper)</h2>
+            <img src="universal_indicator.jpg" alt="廣用試紙示意圖">
+            <div class="mindmap">
+                <p>範圍：1 - 14</p>
+                <p>顏色變化：隨著酸鹼度從紅色至藍色變化</p>
+                <p>用途：廣泛應用於測試液體的酸鹼值</p>
+            </div>
+        </div>
+    </div>
+    <!-- 甲基橙的彈跳視窗 -->
+    <div id="methyl-orange" class="modal">
+        <div class="modal-content">
+            <button class="close-button" onclick="closeModal()">×</button>
+            <h2>甲基橙 (Methyl Orange)</h2>
+            <img src="data:image/jpeg;base64,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" alt="甲基橙示意圖">
+            <div class="mindmap">
+                <p>範圍：3.1 - 4.4</p>
+                <p>顏色變化：酸性紅色，鹼性黃色</p>
+                <p>用途：常用於酸鹼滴定分析，尤其適合於弱鹼和強酸的測試</p>
             </div>
         </div>
     </div>
