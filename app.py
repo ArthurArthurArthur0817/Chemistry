@@ -27,6 +27,10 @@ def page2():
 def page3():
     return render_template('indicator.html')
 
+@app.route('/pH')
+def page4():
+    return render_template('pH.html')
+
 # 化學模擬的 API，處理 pH 和指示劑
 @app.route('/simulate', methods=['POST'])
 def simulate():
