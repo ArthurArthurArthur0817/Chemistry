@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>pH Scale Drag and Drop Game</title>
+    <title>pH值拖拉小遊戲 pH Scale Drag and Drop Game</title>
     <style>
         /* styles.css */
         body {
@@ -22,30 +22,50 @@
             margin-top: 20px;
         }
 
+                    
+        /* Add unique colors for each pH level */
+        .ph-level[data-ph="0"] { background-color: #ff0000; /* Strong Acid */ }
+        .ph-level[data-ph="1"] { background-color: #ff3300; }
+        .ph-level[data-ph="2"] { background-color: #ff6600; }
+        .ph-level[data-ph="3"] { background-color: #ff9900; }
+        .ph-level[data-ph="4"] { background-color: #ffcc00; }
+        .ph-level[data-ph="5"] { background-color: #ffff00; }
+        .ph-level[data-ph="6"] { background-color: #ccff00; }
+        .ph-level[data-ph="7"] { background-color: #00ff00; /* Neutral */ }
+        .ph-level[data-ph="8"] { background-color: #00cc66; }
+        .ph-level[data-ph="9"] { background-color: #0099cc; }
+        .ph-level[data-ph="10"] { background-color: #3366ff; }
+        .ph-level[data-ph="11"] { background-color: #6600cc; }
+        .ph-level[data-ph="12"] { background-color: #9900cc; }
+        .ph-level[data-ph="13"] { background-color: #cc00cc; }
+        .ph-level[data-ph="14"] { background-color: #ff00ff; /* Strong Base */ }
+
+        /* Add a transition for smooth color change on hover */
         .ph-level {
-            width: 60px;
-            height: 60px;
+            transition: background-color 0.3s ease;
+        }
+
+        
+        .ph-level {
+            width: 75px;
+            height: 75px;
             border: 1px solid #333;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 2px;
-            background-color: lightgray;
             font-weight: bold;
+            font-size: 30px ;
             color: #333;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-        }
-
-        .ph-level:hover {
-            background-color: #ddd;
+            box-shadow: 0 px 6px rgba(0, 0, 0, 0.2);
         }
 
         .items {
             margin-top: 30px;
             display: flex;
-            gap: 15px;
+            gap: 20px;
             justify-content: center;
             flex-wrap: wrap;
         }
@@ -53,7 +73,7 @@
         .item {
             padding: 15px;
             background-color: #4CAF50;
-            color: white;
+            color: rgb(0, 0, 0);
             cursor: grab;
             border-radius: 5px;
             font-weight: bold;
@@ -64,8 +84,24 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
+                /* Apply unique colors to items based on their pH value */
+        .item[data-ph="0"] { background-color: #ff0000; /* Strong Acid */ }
+        .item[data-ph="1"] { background-color: #ff3300; }
+        .item[data-ph="2"] { background-color: #ff6600; }
+        .item[data-ph="3"] { background-color: #ff9900; }
+        .item[data-ph="4"] { background-color: #ffcc00; }
+        .item[data-ph="5"] { background-color: #ffff00; }
+        .item[data-ph="6"] { background-color: #ccff00; }
+        .item[data-ph="7"] { background-color: #00ff00; /* Neutral */ }
+        .item[data-ph="8"] { background-color: #00cc66; }
+        .item[data-ph="9"] { background-color: #0099cc; }
+        .item[data-ph="10"] { background-color: #3366ff; }
+        .item[data-ph="11"] { background-color: #6600cc; }
+        .item[data-ph="12"] { background-color: #9900cc; }
+        .item[data-ph="13"] { background-color: #cc00cc; }
+        .item[data-ph="14"] { background-color: #ff00ff; /* Strong Base */ }
 
         .item:active {
             transform: scale(0.95);
@@ -117,122 +153,118 @@
         <!-- Draggable items with pH values and images -->
         <div class="item" id="battery" draggable="true" data-ph="0">
             <img src="https://www.haoyutech.com.tw/upload/catalog_list_pic_s/twL_catalog_20G06_7iwt95kwnm.jpg" alt="Battery">
-            Battery Acid (pH 0)
+            Battery Acid電池液 (pH 0)
         </div>
         <div class="item" id="stomach-acid" draggable="true" data-ph="1">
             <img src="https://cw1.tw/CH/images/channel_master/2c5c4050-3576-49fb-a77f-5f86bd966e39.jpg" alt="Stomach">
-            Stomach Acid (pH 1)
+            Stomach Acid胃酸 (pH 1)
         </div>
         <div class="item" id="lemon" draggable="true" data-ph="2">
             <img src="https://global-blog.cpcdn.com/tw/2024/07/yellow_lemon-1.jpg" alt="Lemon">
-            Lemon (pH 2)
+            Lemon檸檬 (pH 2)
         </div>
         <div class="item" id="vinegar" draggable="true" data-ph="3">
             <img src="https://www.wanjashan.com.tw/backend/products/P_PIC/P_PIC2/2015060900051.jpg" alt="Vinegar">
-            Vinegar (pH 3)
+            Vinegar醋 (pH 3)
         </div>
         <div class="item" id="tomato" draggable="true" data-ph="4">
             <img src="https://img.edh.tw/c1/5/4469/37713792222_6a3156f8b5_o.jpg" alt="Tomato">
-            Tomato (pH 4)
+            Tomato番茄 (pH 4)
         </div>
         <div class="item" id="coffee" draggable="true" data-ph="5">
             <img src="https://i.epochtimes.com/assets/uploads/2020/02/coffee-difference_317687987-600x400.jpg" alt="Coffee">
-            Coffee (pH 5)
+            Coffee咖啡 (pH 5)
         </div>
         <div class="item" id="milk" draggable="true" data-ph="6">
             <img src="https://cdn-www.cw.com.tw/article/202003/article-5e74490f94b03.jpg" alt="Milk">
-            Milk (pH 6)
+            Milk牛奶 (pH 6)
         </div>
         <div class="item" id="water" draggable="true" data-ph="7">
             <img src="https://www.doyourwater.com.tw/upload/news/2211091629510000002.jpg" alt="Water">
-            Water (pH 7)
+            Water純水 (pH 7)
         </div>
         <div class="item" id="sea" draggable="true" data-ph="8">
             <img src="https://www.scimonth.com.tw/upload/article/SM649/peter-fogden-Jx5IB1f5-4w-unsplash_(1).jpg" alt="sea">
-            sea (pH 8)
+            sea大海 (pH 8)
         </div>
         <div class="item" id="baking-soda" draggable="true" data-ph="9">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTEhmwZwPwNib4MxtVYs0GbDbMlHZ5nZK1TA&s" alt="Baking Soda">
-            Baking Soda (pH 9)
+            NaHCo3小蘇打 (pH 9)
         </div>
         <div class="item" id="toothpaste" draggable="true" data-ph="10">
             <img src="https://cdn.cybassets.com/media/W1siZiIsIjE4MDk4L3Byb2R1Y3RzLzMzNzcxMzI4LzE3MTg2OTg2MDJfOTgxMmEzNzQ2Y2JhZDcyMzdmYjYuanBlZyJdLFsicCIsInRodW1iIiwiNjAweDYwMCJdXQ.jpeg?sha=10bb141dafdcd47b" alt="sea">
-            toothpaste (pH 10)
+            toothpaste牙膏 (pH 10)
         </div>
         <div class="item" id="ammonia" draggable="true" data-ph="11">
             <img src="https://m.media-amazon.com/images/I/51pFSH2tFxL.jpg" alt="Ammonia">
-            Ammonia (pH 11)
+            Ammonia氨尿液 (pH 11)
         </div>
         <div class="item" id="soap" draggable="true" data-ph="12">
             <img src="https://cdn.shopify.com/s/files/1/1246/6441/articles/how_20to_20make_20soap_961e8616-2cb8-4154-869a-b103b993fb1f.png?v=1727355442" alt="Soap">
-            Soap (pH 12)
+            Soap肥皂 (pH 12)
         </div>
         <div class="item" id="bleach" draggable="true" data-ph="13">
             <img src="https://target.scene7.com/is/image/Target/GUEST_e754ebc9-6681-46a9-9ce3-3f5eb55250d8?wid=488&hei=488&fmt=pjpeg" alt="Bleach">
-            Bleach (pH 13)
+            Bleach漂白水 (pH 13)
         </div>
         <div class="item" id="NaOH" draggable="true" data-ph="14">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeol6Z8MJIT1bQY-CSsDlG8MiKrEY8GgZPMw&s" alt="sea">
-            NaOH (pH 14)
+            NaOH 鹼片 (pH 14)
         </div>
         <!-- Add more items as needed -->
     </div>
 
     <script>
-        // script.js
+       // script.js
 
-        // Add drag event listeners to items
-        document.querySelectorAll('.item').forEach(item => {
-            item.addEventListener('dragstart', dragStart);
-        });
+// Add drag event listeners to items
+document.querySelectorAll('.item').forEach(item => {
+    item.addEventListener('dragstart', dragStart);
+});
 
-        // Add dragover and drop event listeners to pH levels
-        document.querySelectorAll('.ph-level').forEach(level => {
-            level.addEventListener('dragover', dragOver);
-            level.addEventListener('drop', drop);
-        });
+// Add dragover and drop event listeners to pH levels
+document.querySelectorAll('.ph-level').forEach(level => {
+    level.addEventListener('dragover', dragOver);
+    level.addEventListener('drop', drop);
+});
 
-        function dragStart(e) {
-            e.dataTransfer.setData('phValue', e.target.dataset.ph); // Store the pH value of the item
-            e.dataTransfer.setData('itemId', e.target.id); // Store the item id for retrieval
-        }
+function dragStart(e) {
+    e.dataTransfer.setData('phValue', e.target.dataset.ph); // Store the pH value of the item
+    e.dataTransfer.setData('itemId', e.target.id); // Store the item id for retrieval
+}
 
-        function dragOver(e) {
-            e.preventDefault(); // Necessary to allow dropping
-        }
+function dragOver(e) {
+    e.preventDefault(); // Necessary to allow dropping
+}
 
-        function drop(e) {
-            e.preventDefault();
-            const itemPh = e.dataTransfer.getData('phValue'); // Get the dragged item's pH value
-            const itemId = e.dataTransfer.getData('itemId');
-            const levelPh = e.target.dataset.ph; // Get the pH level of the drop target
-            const draggedItem = document.getElementById(itemId); // Reference to the dragged item
+function drop(e) {
+    e.preventDefault();
+    const itemPh = e.dataTransfer.getData('phValue'); // Get the dragged item's pH value
+    const itemId = e.dataTransfer.getData('itemId');
+    const levelPh = e.target.dataset.ph; // Get the pH level of the drop target
+    const draggedItem = document.getElementById(itemId); // Reference to the dragged item
 
-            if (itemPh === levelPh) {
-                // Correct placement
-                e.target.style.backgroundColor = '#4CAF50'; // Set green background for correct drop
-                e.target.textContent = draggedItem.textContent; // Set the text of the pH box to the item name
-                draggedItem.classList.add('correct');
-                draggedItem.style.display = 'none'; // Hide the original item to simulate it's been placed
-            } else {
-                // Incorrect placement - reset item to original position
-                e.target.style.backgroundColor = '#FF6347'; // Set red background for incorrect drop
-                e.target.textContent = "✕"; // Show a cross for incorrect placement
+    if (itemPh === levelPh) {
+        // Correct placement
+        e.target.style.backgroundColor = draggedItem.style.backgroundColor; // Set correct color for the pH level
+        e.target.textContent = draggedItem.textContent; // Set the text of the pH box to the item name
+        e.target.style.fontSize = '16px'; // Adjust font size for the pH box text
+        draggedItem.classList.add('correct');
+        draggedItem.style.display = 'none'; // Hide the original item to simulate it's been placed
+    } else {
+        // Incorrect placement
+        e.target.style.backgroundColor = '#FF6347'; // Set red background for incorrect drop
+        e.target.textContent = "✕"; // Show a cross for incorrect placement
 
-                // Reset the color and content after a short delay
-                setTimeout(() => {
-                    e.target.style.backgroundColor = 'lightgray';
-                    e.target.textContent = levelPh;
-                }, 1000);
+        // Reset the color and content after a short delay
+        setTimeout(() => {
+            e.target.style.backgroundColor = ''; // Reset background to default
+            e.target.textContent = levelPh; // Reset pH level text
+            e.target.style.fontSize = ''; // Reset font size
+        }, 1000); // Delay of 1 second
+    }
+}
 
-                // Move the item back to its original position by briefly hiding and showing it
-                draggedItem.classList.add('incorrect');
-                setTimeout(() => {
-                    draggedItem.classList.remove('incorrect');
-                    draggedItem.style.display = 'block'; // Show again at its original position
-                }, 500);
-            }
-        }
     </script>
     <button class="back-home-btn" onclick="window.location.href='/'">返回主畫面</button>
 
