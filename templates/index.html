@@ -85,14 +85,27 @@
             <h1>化學實驗教學</h1>
             <img src="{{ url_for('static', filename='image/cup.png') }}" alt="p" class="beaker-image">
         </div>
-        <div class="button-container">
-            <button onclick="window.location.href='/chemistry'">酸鹼值檢定</button>
-            <button onclick="window.location.href='/classification'">行為分類</button>
-            <button onclick="window.location.href='/teach'">實驗安全守則</button>
-            <button onclick="window.location.href='/page2'">g6u90</button>
-            <button onclick="window.location.href='/indicator'">指示劑</button>
-            <button onclick="window.location.href='/pH'">pH小遊戲</button>
+    
+        <!-- 第一部分按鈕區域 -->
+        <div class="button-section">
+            <h2>教學</h2>
+            <div class="button-container">
+                <button onclick="window.location.href='/teach'">實驗安全守則</button>
+                <button onclick="window.location.href='/book'">酸鹼教學教材</button>
+                <button onclick="window.location.href='/indicator'">指示劑</button>
+            </div>
+        </div>
+    
+        <!-- 第二部分按鈕區域 -->
+        <div class="button-section">
+            <h2>互動小遊戲</h2>
+            <div class="button-container">
+                <button onclick="window.location.href='/chemistry'">酸鹼值檢定</button>
+                <button onclick="window.location.href='/classification'">行為分類</button>
+                <button onclick="window.location.href='/pH'">pH小遊戲</button>
+            </div>
         </div>
     </div>
+    
 </body>
 </html>
