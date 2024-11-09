@@ -8,13 +8,16 @@
         /* 背景及整體設計 */
         body {
             font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #4e73df, #a6bdf0);
             color: #333;
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            background-image: url('/static/image/a.jpg');
+            background-size: cover;
+            background-position: center;
+            transition: background-image 0.5s ease-in-out;
         }
 
         /* 標題及圖片容器設計 */
@@ -78,6 +81,26 @@
             }
         }
     </style>
+    <script>
+        function toggleScene() {
+            const body = document.body;
+            const teachingSection = document.getElementById('teaching-section');
+            const gameSection = document.getElementById('game-section');
+            const sceneButton = document.getElementById('scene-button');
+
+            if (body.style.backgroundImage.includes('a.jpg')) {
+                body.style.backgroundImage = "url('{{ url_for('static', filename='image/b.gif') }}')";
+                teachingSection.style.display = 'none';
+                gameSection.style.display = 'block';
+                sceneButton.textContent = '返回門口';
+            } else {
+                body.style.backgroundImage = "url('{{ url_for('static', filename='image/a.jpg') }}')";
+                teachingSection.style.display = 'block';
+                gameSection.style.display = 'none';
+                sceneButton.textContent = '進入實驗室';
+            }
+        }
+    </script>
 </head>
 <body>
     <div>
@@ -85,27 +108,28 @@
             <h1>化學實驗教學</h1>
             <img src="{{ url_for('static', filename='image/cup.png') }}" alt="p" class="beaker-image">
         </div>
-    
-        <!-- 第一部分按鈕區域 -->
-        <div class="button-section">
+        
+        <!-- 第一部分按鈕區域 (教學) -->
+        <div id="teaching-section" class="button-section">
             <h2>教學</h2>
             <div class="button-container">
                 <button onclick="window.location.href='/teach'">實驗安全守則</button>
                 <button onclick="window.location.href='/book'">認識酸和鹼</button>
                 <button onclick="window.location.href='/indicator'">指示劑</button>
+                <button id="scene-button" onclick="toggleScene()">進入實驗室</button>
             </div>
         </div>
-    
-        <!-- 第二部分按鈕區域 -->
-        <div class="button-section">
+        
+        <!-- 第二部分按鈕區域 (互動小遊戲) -->
+        <div id="game-section" class="button-section" style="display: none;">
             <h2>互動小遊戲</h2>
             <div class="button-container">
                 <button onclick="window.location.href='/chemistry'">酸鹼值檢定</button>
                 <button onclick="window.location.href='/classification'">行為分類</button>
                 <button onclick="window.location.href='/pH'">pH小遊戲</button>
+                <button id="scene-button" onclick="toggleScene()">返回門口</button>
             </div>
         </div>
     </div>
-    
 </body>
 </html>
