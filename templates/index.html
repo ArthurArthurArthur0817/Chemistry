@@ -144,7 +144,34 @@
     height: auto; /* 高度自動適應 */
     z-index: -1
 }
+ /* 調整下方按鈕容器的位置 */
+    #bottom-button-container {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 20px;
+    }
 
+    /* 調整按鈕樣式 */
+    #bottom-button-container button {
+        padding: 15px 20px;
+        font-size: 1.2em;
+        color: #4e73df;
+        background-color: #fff;
+        border: 2px solid #4e73df;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.3s;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    #bottom-button-container button:hover {
+        background-color: #4e73df;
+        color: #fff;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    }
 
     </style>
     <script>
@@ -193,7 +220,7 @@
         
         <!-- 第二部分按鈕區域 (互動小遊戲) -->
         <div id="game-section" class="button-section" style="display: none;">
-            <h2>互動小遊戲</h2>
+            <h2></h2>
             <div class="button-container">
                 <button onclick="window.location.href='/chemistry'">酸鹼值檢定</button>
                 <button onclick="window.location.href='/classification'">行為分類</button>
