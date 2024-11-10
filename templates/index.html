@@ -14,18 +14,21 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-image: url('/static/image/a.jpg');
+            background-image: url('/static/image/c.jpg');
             background-size: cover;
             background-position: center;
             transition: background-image 0.5s ease-in-out;
         }
 
-        /* 標題及圖片容器設計 */
-        .header-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
+    /* 標題及圖片容器設計 */
+    .header-container {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        position: absolute; /* 使用絕對定位 */
+        left: 100px; /* 設定距離左邊緣100px */
+        top: 100px; /* 可以根據需要調整垂直位置 */
+    }
 
         /* 標題設計 */
         h1 {
@@ -33,6 +36,7 @@
             font-size: 2.5em;
             margin: 0;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            
         }
 
         /* 燒杯圖片設計 */
@@ -80,24 +84,89 @@
                 font-size: 1em;
             }
         }
+        /* 右側按鈕容器設計 */
+#right-button-container {
+    position: fixed;
+    right: 100px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 200px; /* 設定容器寬度 */
+}
+
+/* 放大的按鈕設計 */
+#right-button-container button {
+    width: 100%;
+    padding: 20px;
+    font-size: 1.5em;
+    color: #4e73df;
+    background-color: #fff;
+    border: 2px solid #4e73df;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#right-button-container button:hover {
+    background-color: #4e73df;
+    color: #fff;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+/* 放大 "進入實驗室" 按鈕 */
+#scene-button {
+    width: 100%; /* 可選，保持按鈕寬度100% */
+    padding: 25px; /* 增加內邊距，使按鈕更大 */
+    font-size: 1.5em; /* 增加字體大小 */
+    color: #4e73df; /* 按鈕字體顏色 */
+    background-color: #ffffff; /* 按鈕背景色 */
+    border: 2px solid #4e73df; /* 邊框顏色 */
+    border-radius: 8px; /* 邊角圓滑 */
+    cursor: pointer; /* 當滑鼠懸停時顯示手型 */
+    transition: 0.3s; /* 減少變化的過渡時間 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 按鈕陰影效果 */
+}
+
+#scene-button:hover {
+    background-color: #4e73df; /* 懸停時背景色變為白色 */
+    color: #ffffff; /* 懸停時文字顏色改為藍色 */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* 懸停時陰影變大 */
+}
+
+/* 設定GIF圖片的絕對位置 */
+.gif-container {
+    position: absolute; /* 設定為絕對定位 */
+    bottom:100px; /* 距離頁面底部 20px */
+    right: 430px;  /* 距離頁面右邊 20px */
+    width: 450px; /* 設定寬度 */
+    height: auto; /* 高度自動適應 */
+    z-index: -1
+}
+
+
     </style>
     <script>
         function toggleScene() {
             const body = document.body;
-            const teachingSection = document.getElementById('teaching-section');
-            const gameSection = document.getElementById('game-section');
-            const sceneButton = document.getElementById('scene-button');
+    const teachingSection = document.getElementById('teaching-section');
+    const gameSection = document.getElementById('game-section');
+    const sceneButton = document.getElementById('scene-button');
+    const gifContainer = document.querySelector('.gif-container'); // 取得GIF容器
 
-            if (body.style.backgroundImage.includes('a.jpg')) {
+            if (body.style.backgroundImage.includes('c.jpg')) {
                 body.style.backgroundImage = "url('{{ url_for('static', filename='image/b.gif') }}')";
                 teachingSection.style.display = 'none';
                 gameSection.style.display = 'block';
                 sceneButton.textContent = '返回門口';
+                gifContainer.style.display = 'none'; // 隱藏GIF
             } else {
-                body.style.backgroundImage = "url('{{ url_for('static', filename='image/a.jpg') }}')";
+                body.style.backgroundImage = "url('{{ url_for('static', filename='image/c.jpg') }}')";
                 teachingSection.style.display = 'block';
                 gameSection.style.display = 'none';
                 sceneButton.textContent = '進入實驗室';
+                gifContainer.style.display = 'block'; // 顯示GIF
             }
         }
     </script>
@@ -105,20 +174,22 @@
 <body>
     <div>
         <div class="header-container">
-            <h1>化學實驗教學</h1>
+           <h1></h1>
             <img src="{{ url_for('static', filename='image/cup.png') }}" alt="p" class="beaker-image">
         </div>
         
-        <!-- 第一部分按鈕區域 (教學) -->
         <div id="teaching-section" class="button-section">
-            <h2>教學</h2>
-            <div class="button-container">
+
+            <div id="right-button-container">
                 <button onclick="window.location.href='/teach'">實驗安全守則</button>
                 <button onclick="window.location.href='/book'">認識酸和鹼</button>
                 <button onclick="window.location.href='/indicator'">指示劑</button>
+            </div>
+            <div class="button-container">
                 <button id="scene-button" onclick="toggleScene()">進入實驗室</button>
             </div>
         </div>
+        
         
         <!-- 第二部分按鈕區域 (互動小遊戲) -->
         <div id="game-section" class="button-section" style="display: none;">
@@ -131,5 +202,9 @@
             </div>
         </div>
     </div>
+
+    <!-- 在<body>中插入GIF -->
+<img src="{{ url_for('static', filename='image/Chemical.gif') }}" alt="動畫GIF" class="gif-container">
+
 </body>
 </html>
