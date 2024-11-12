@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>化學實驗教學</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <img src="{{ url_for('static', filename='image/Chemical.gif') }}" alt="動畫GIF" class="gif-container">
     <script>
         function toggleScene() {
             const body = document.body;
@@ -34,7 +35,6 @@
             <h1></h1>
             <img src="{{ url_for('static', filename='image/cup.png') }}" alt="p" class="beaker-image">
         </div>
-        
         <div id="teaching-section" class="button-section">
             <div id="right-button-container">
                 <button onclick="window.location.href='/teach'">實驗安全守則</button>
@@ -45,7 +45,6 @@
                 <button id="scene-button" onclick="toggleScene()">進入實驗室</button>
             </div>
         </div>
-        
         <div id="game-section" class="button-section" style="display: none;">
             <h2></h2>
             <div class="button-container-2">
@@ -56,7 +55,5 @@
             </div>
         </div>
     </div>
-
-    <img src="{{ url_for('static', filename='image/Chemical.gif') }}" alt="動畫GIF" class="gif-container">
 </body>
 </html>

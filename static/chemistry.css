@@ -1,0 +1,72 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.8;
+    background-image: url('https://img.pikbest.com/ai/illus_our/20230427/98d5267525507a4d3723c8d339e1eed7.jpg!w700wp'); /* 加入背景圖片 */
+    background-size: cover; /* 讓背景圖片覆蓋整個頁面 */
+    background-attachment: fixed; /* 讓背景圖片固定不捲動 */
+    background-position: center;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-family: Arial, sans-serif;
+    }
+    #container {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        margin-top: 30px;
+    }
+    .small-beaker {
+        width: 100px;
+        height: 150px;
+        background-color: lightgray;
+        border: 2px solid black;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        margin: 10px;
+        cursor: grab;
+        text-align: center;
+    }
+    #main-beaker {
+        width: 200px;
+        height: 250px;
+        background-color: white;
+        border: 2px solid black;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        text-align: center;
+        margin-top: 20px;
+    }
+/* 返回主畫面按鈕樣式 */
+.back-home-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 12px 20px;
+    font-size: 1em;
+    color: #fff;
+    background-color: #4e73df;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: 0.3s ease;
+}
+
+.back-home-btn:hover {
+    background-color: #3c5bbf;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}

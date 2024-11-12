@@ -1,0 +1,160 @@
+/* 背景及整體設計 */
+body {
+    font-family: Arial, sans-serif;
+    color: #333;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('/static/image/c.jpg');
+    background-size: cover;
+    background-position: center;
+    transition: background-image 0.5s ease-in-out;
+}
+
+/* 標題及圖片容器設計 */
+.header-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    position: absolute;
+    left: 100px;
+    top: 100px;
+}
+
+/* 標題設計 */
+h1 {
+    color: #fff;
+    font-size: 2.5em;
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* 燒杯圖片設計 */
+.beaker-image {
+    width: 50px;
+    height: 50px;
+}
+
+/* 按鈕容器設計 */
+.button-container {
+    position: fixed;
+    top: 425px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 190px;
+    min-width: 180px;
+    height: 90%; /* 這裡改為相對高度，可以調整為適合的值 */
+    max-height: 140px; /* 減少最大高度 */
+    min-height: 130px; /* 減少最小高度 */
+    padding: 15px;
+    box-sizing: border-box;
+    margin: 0;
+}
+
+/* 按鈕容器設計 */
+.button-container-2 {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    max-width: 300px;
+    margin: 0 auto;
+}
+/* 按鈕設計 */
+button {
+    width: 100%; /* 按鈕寬度100%，會跟隨容器寬度自動調整 */
+    padding: 15px; /* 設置內邊距以增加按鈕的高度 */
+    font-size: 1.2em; /* 設定字體大小 */
+    color: #4e73df; /* 設定字體顏色 */
+    background-color: #fff; /* 設定背景顏色 */
+    border: 2px solid #4e73df; /* 設定邊框顏色 */
+    border-radius: 8px; /* 設定圓角邊框 */
+    cursor: pointer; /* 設定鼠標樣式 */
+    transition: 0.3s; /* 平滑過渡效果 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 設定陰影效果 */
+}
+
+button:hover {
+    background-color: #4e73df;
+    color: #fff;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* 針對小型設備的調整 */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2em;
+    }
+    button {
+        font-size: 1em;
+    }
+}
+
+#right-button-container {
+    position: fixed;
+    top: 50%; /* 讓容器在垂直方向上居中 */
+    left: 50%; /* 讓容器在水平方向上居中 */
+    transform: translate(-50%, -50%); /* 使容器的中心點對齊頁面中心 */
+    display: flex;
+    flex-direction: row; /* 改為水平排列 */
+    gap: 20px; /* 按鈕之間的間距 */
+    width: auto; /* 自動寬度，以符合按鈕的內容 */
+}
+
+
+#right-button-container button {
+    width: 100%;
+    padding: 20px;
+    font-size: 1.5em;
+}
+
+/* 放大 "進入實驗室" 按鈕 */
+#scene-button {
+    width: 100%;
+    padding: 25px;
+    font-size: 1.5em;
+    color: #4e73df;
+    background-color: #ffffff;
+    border: 2px solid #4e73df;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#scene-button:hover {
+    background-color: #4e73df;
+    color: #ffffff;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* GIF圖片的絕對位置 */
+.gif-container {
+    position: absolute;
+    bottom: 200px;
+    right: 540px;
+    width: 450px;
+    height: 500;
+    z-index: -1;
+}
+
+/* 下方按鈕容器的位置 */
+#bottom-button-container {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 20px;
+}
+
+#bottom-button-container button {
+    padding: 15px 20px;
+    font-size: 1.2em;
+}
