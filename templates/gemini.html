@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini 問答</title>
+    <link rel="stylesheet" href="static/gemini.css">
+</head>
+<body>
+    <h2>Gemini 問答系統</h2>
+    <div class="input-container">
+        <label for="inputBox">輸入您的問題:</label>
+        <textarea id="inputBox" placeholder="輸入任意問題，如'簡單介紹酸和鹼'"></textarea>
+        <div class="button-group">
+            <button onclick="getGeminiAnswer()">提交問題</button>
+            <button onclick="clearFields()">清空</button>
+        </div>
+    </div>
+
+    <div class="output-container">
+        <h3>回答:</h3>
+        <textarea id="outputBox" readonly></textarea>
+    </div>
+
+    <script>
+        async function getGeminiAnswer() {
+            const question = document.getElementById('inputBox').value;
+            const response = await fetch('/gemini_answer', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ question })
+            });
+            const data = await response.json();
+            document.getElementById('outputBox').value = data.answer;
+        }
+
+        function clearFields() {
+            document.getElementById('inputBox').value = '';
+            document.getElementById('outputBox').value = '';
+        }
+    </script>
+</body>
+</html>
