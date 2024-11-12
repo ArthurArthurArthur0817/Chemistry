@@ -3,7 +3,7 @@ import os
 import re
 
 # 配置 Gemini API 金鑰
-api_key = 'AIzaSyBqaiNcZhtRz5wRf6FU4ZYZ_xJxblhvh6E'
+api_key = ''
 genai.configure(api_key=api_key)
 
 def get_gemini_response(question):
