@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 import chemistry  # 假設 chemistry.py 處理化學模擬的邏輯
+import gemini  # 新增 gemini.py 模組
 
 app = Flask(__name__)
 
@@ -46,6 +47,19 @@ def simulate():
     ph, color = chemistry.get_ph_and_color(ph, indicator)
     return jsonify({"ph": ph, "color": color})  # 返回 pH 和顏色
 
+
+# 新增 Gemini 問答頁面
+@app.route('/gemini')
+def gemini_page():
+    return render_template('gemini.html')
+
+# 處理 Gemini 問答 API
+@app.route('/gemini_answer', methods=['POST'])
+def gemini_answer():
+    data = request.get_json()
+    question = data.get('question', '')
+    answer = gemini.get_gemini_response(question)
+    return jsonify({"answer": answer})
 
 
 
