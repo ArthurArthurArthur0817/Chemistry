@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>pH Scale Drag and Drop Game</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/static/pH.css">
 </head>
 <body>
     <h1>認識酸鹼物質pH值小遊戲 pH Scale Drag and Drop Game</h1>
@@ -32,37 +32,165 @@
 
 <!-- Level 1 -->
 <div id="level-1" class="items">
-    <div class="item" id="battery" draggable="true" data-ph="0"> <img href="/static/image/pH/battery.png" alt="Battery">
+    <div class="item" id="battery" draggable="true" data-ph="0"> <img src="/static/image/pH/battery.png" alt="Battery">
             Battery Acid電池液 (pH 0)</div>
-    <div class="item" id="soap" draggable="true" data-ph="12"><img href="/static/image/pH/soap.png" alt="soap">Soap (pH 12)</div>
-    <div class="item" id="water" draggable="true" data-ph="7"><img href="/static/image/pH/water.png" alt="water">Water (pH 7)</div>
+    <div class="item" id="soap" draggable="true" data-ph="12"><img src="/static/image/pH/soap.png" alt="soap">Soap (pH 12)</div>
+    <div class="item" id="water" draggable="true" data-ph="7"><img src="/static/image/pH/water.png" alt="water">Water (pH 7)</div>
 </div>
 
 <!-- Level 2 -->
 <div id="level-2" class="items hidden">
-    <div class="item" id="stomach-acid" draggable="true" data-ph="1"><img href="/static/image/pH/stomach.png" alt="stomach-acid">Stomach Acid (pH 1)</div>
-    <div class="item" id="coffee" draggable="true" data-ph="5"><img href="/static/image/pH/coffee.png" alt="coffee">Coffee (pH 5)</div>
-    <div class="item" id="NaOH" draggable="true" data-ph="14"><img href="/static/image/pH/naoh.png" alt="NaOH">NaOH (pH 14)</div>
-    <div class="item" id="baking-soda" draggable="true" data-ph="9"><img href="/static/image/pH/soda.png" alt="baking-soda">Baking Soda (pH 9)</div>
+    <div class="item" id="stomach-acid" draggable="true" data-ph="1"><img src="/static/image/pH/stomach.png" alt="stomach-acid">Stomach Acid (pH 1)</div>
+    <div class="item" id="coffee" draggable="true" data-ph="5"><img src="/static/image/pH/coffee.png" alt="coffee">Coffee (pH 5)</div>
+    <div class="item" id="NaOH" draggable="true" data-ph="14"><img src="/static/image/pH/naoh.png" alt="NaOH">NaOH (pH 14)</div>
+    <div class="item" id="baking-soda" draggable="true" data-ph="9"><img src="/static/image/pH/soda.png" alt="baking-soda">Baking Soda (pH 9)</div>
 </div>
 
 <!-- Level 3 -->
 <div id="level-3" class="items hidden">
-    <div class="item" id="tomato" draggable="true" data-ph="4"><img href="/static/image/pH/tomato.png" alt="tomato">Tomato (pH 4)</div>
-    <div class="item" id="milk" draggable="true" data-ph="6"><img href="/static/image/pH/milk.png" alt="milk">Milk (pH 6)</div>
-    <div class="item" id="toothpaste" draggable="true" data-ph="10"><img href="/static/image/pH/toothpaste.png" alt="toothpaste">Toothpaste (pH 10)</div>
-    <div class="item" id="bleach" draggable="true" data-ph="13"><img href="/static/image/pH/bleach.png" alt="bleach">Bleach (pH 13)</div>
+    <div class="item" id="tomato" draggable="true" data-ph="4"><img src="/static/image/pH/tomato.png" alt="tomato">Tomato (pH 4)</div>
+    <div class="item" id="milk" draggable="true" data-ph="6"><img src="/static/image/pH/milk.png" alt="milk">Milk (pH 6)</div>
+    <div class="item" id="toothpaste" draggable="true" data-ph="10"><img src="/static/image/pH/toothpaste.png" alt="toothpaste">Toothpaste (pH 10)</div>
+    <div class="item" id="bleach" draggable="true" data-ph="13"><img src="/static/image/pH/bleach.png" alt="bleach">Bleach (pH 13)</div>
 </div>
 
 <!-- Level 4 -->
 <div id="level-4" class="items hidden">
-    <div class="item" id="lemon" draggable="true" data-ph="2"><img href="/static/image/pH/lemon.png" alt="lemon">Lemon (pH 2)</div>
-    <div class="item" id="ammonia" draggable="true" data-ph="11"><img href="/static/image/pH/urine.png" alt="ammonia">Ammonia (pH 11)</div>
-    <div class="item" id="vinegar" draggable="true" data-ph="3"><img href="/static/image/pH/vinegar.png" alt="vinegar">Vinegar (pH 3)</div>
-    <div class="item" id="sea" draggable="true" data-ph="8"><img href="/static/image/pH/sea.png" alt="sea">Sea (pH 8)</div>
+    <div class="item" id="lemon" draggable="true" data-ph="2"><img src="/static/image/pH/lemon.png" alt="lemon">Lemon (pH 2)</div>
+    <div class="item" id="ammonia" draggable="true" data-ph="11"><img src="/static/image/pH/urine.png" alt="ammonia">Ammonia (pH 11)</div>
+    <div class="item" id="vinegar" draggable="true" data-ph="3"><img src="/static/image/pH/vinegar.png" alt="vinegar">Vinegar (pH 3)</div>
+    <div class="item" id="sea" draggable="true" data-ph="8"><img src="/static/image/pH/sea.png" alt="sea">Sea (pH 8)</div>
 </div>
 
 
-    <script src="game.js"></script>
+<script>
+        let currentLevel = 1;  // Start at level 1
+const totalLevels = 4; // Total levels
+let correctCount = 0;
+const correctItemsPerLevel = {
+    1: 3,
+    2: 4,
+    3: 4,
+    4: 4
+};
+
+// Add event listeners for draggable items and drop zones
+document.querySelectorAll('.item').forEach(item => {
+    item.addEventListener('dragstart', dragStart);
+});
+
+document.querySelectorAll('.ph-level').forEach(level => {
+    level.addEventListener('dragover', dragOver);
+    level.addEventListener('drop', drop);
+});
+
+function dragStart(e) {
+    e.dataTransfer.setData('phValue', e.target.dataset.ph);
+    e.dataTransfer.setData('itemId', e.target.id);
+}
+
+function dragOver(e) {
+    e.preventDefault();
+}
+
+function drop(e) {
+    e.preventDefault();
+    const itemPh = e.dataTransfer.getData('phValue');
+    const itemId = e.dataTransfer.getData('itemId');
+    const levelPh = e.target.dataset.ph;
+    const draggedItem = document.getElementById(itemId);
+
+    if (itemPh === levelPh) {
+        e.target.style.backgroundColor = '#6DC06D'; // Green color for correct drop
+        e.target.textContent = draggedItem.textContent;
+        
+        // Make the text smaller to fit better inside the box
+        e.target.style.fontSize = '12px'; // Smaller font size for the dropped text
+        e.target.style.lineHeight = '1.2'; // Optional: Adjust line height if needed
+
+        draggedItem.style.display = 'none'; // Hide the dragged item
+        correctCount++;
+
+        if (correctCount === correctItemsPerLevel[currentLevel]) {
+            showLevelCompleteMessage();
+        }
+    } else {
+        e.target.style.backgroundColor = '#FF6347'; // Red color for incorrect drop
+        e.target.textContent = "✕"; // Show "X" for incorrect drop
+        setTimeout(() => {
+            e.target.style.backgroundColor = ''; // Reset the background color
+            e.target.textContent = levelPh; // Reset text to the pH value
+            e.target.style.fontSize = '30px'; // Reset font size to original size
+        }, 1000);
+    }
+}
+
+function showLevelCompleteMessage() {
+    const messageBox = document.createElement('div');
+    messageBox.id = 'level-complete-message';
+    messageBox.textContent = `Congratulations! You've completed Level ${currentLevel}`;
+    messageBox.style.position = 'fixed';
+    messageBox.style.top = '50%';
+    messageBox.style.left = '50%';
+    messageBox.style.transform = 'translate(-50%, -50%)';
+    messageBox.style.padding = '20px';
+    messageBox.style.backgroundColor = '#4CAF50';
+    messageBox.style.color = '#fff';
+    messageBox.style.borderRadius = '10px';
+    messageBox.style.fontSize = '20px';
+    messageBox.style.zIndex = '1000';
+    document.body.appendChild(messageBox);
+    
+    setTimeout(() => {
+        document.body.removeChild(messageBox);
+        nextLevel();
+    }, 1500);
+}
+
+function nextLevel() {
+    // 隱藏所有關卡
+    for (let i = 1; i <= totalLevels; i++) {
+        const levelElement = document.getElementById(`level-${i}`);
+        levelElement.classList.add('hidden');
+    }
+
+    // 增加當前關卡
+    currentLevel++;
+
+    // 判斷是否還有關卡
+    if (currentLevel <= totalLevels) {
+        correctCount = 0;
+
+        // 顯示下一關
+        const nextLevelElement = document.getElementById(`level-${currentLevel}`);
+        nextLevelElement.classList.remove('hidden');
+
+        // 更新關卡標題
+        document.getElementById('level-title').textContent = `Level ${currentLevel}`;
+    } else {
+        // 如果全部完成，顯示遊戲結束訊息
+        showGameCompleteMessage();
+    }
+}
+
+
+function showGameCompleteMessage() {
+    const messageBox = document.createElement('div');
+    messageBox.id = 'game-complete-message';
+    messageBox.textContent = "Congratulations! You've completed all levels!";
+    messageBox.style.position = 'fixed';
+    messageBox.style.top = '50%';
+    messageBox.style.left = '50%';
+    messageBox.style.transform = 'translate(-50%, -50%)';
+    messageBox.style.padding = '20px';
+    messageBox.style.backgroundColor = '#4CAF50';
+    messageBox.style.color = '#fff';
+    messageBox.style.borderRadius = '10px';
+    messageBox.style.fontSize = '20px';
+    messageBox.style.zIndex = '1000';
+    document.body.appendChild(messageBox);
+}
+
+</script>
 </body>
 </html>

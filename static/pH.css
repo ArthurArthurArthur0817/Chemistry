@@ -106,7 +106,10 @@ body {
     .item[data-ph="12"] { background-color: #9900cc; }
     .item[data-ph="13"] { background-color: #cc00cc; }
     .item[data-ph="14"] { background-color: #ff00ff; /* Strong Base */ }
-
+    .hidden {
+        display: none;
+    }
+    
     .item:active {
         transform: scale(0.95);
         cursor: grabbing;
